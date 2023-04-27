@@ -18,7 +18,7 @@ class TestDataProcessingPipeline:
         file_exists = os.system("python main.py")
 
         assert file_exists == 0
-        assert main.process(["1", "2"]) is None
+        assert main.process(["1", "2"], True) is None
         assert main.process([]) is None
         assert main.process(["a", "b", "c"]) is None
 
@@ -33,10 +33,13 @@ class TestDataProcessingPipeline:
 
         status = utils.save_data(
             data_file,
-            "test_sales_profile_by_store",
-            pd.read_csv(
-                f"{current_directory}/OutputFiles/PowerBI/sales_profile_by_store.csv"
+            pd.DataFrame(
+                pd.read_csv(
+                    f"{current_directory}/OutputFiles/PowerBI/sales_profile_by_store.csv"
+                )
             ),
+            "sales_profile_by_store",
+            True,
         )
         assert status == True
 
@@ -55,17 +58,17 @@ class TestDataProcessingPipeline:
         static_data_obj = static_data.StaticData()
         static_data_file = static_data_obj.get_source_dataset()
 
-        transformation_obj = Transformation(static_data_file, [1])
+        transformation_obj = Transformation(static_data_file, [1], True)
         assert transformation_obj.validate_store_id() == True
         assert transformation_obj.process_data_pipeline() == True
 
-        transformation_obj = Transformation(static_data_file, [100])
+        transformation_obj = Transformation(static_data_file, [100], True)
         assert transformation_obj.validate_store_id() == False
         assert transformation_obj.process_data_pipeline() == False
 
-        transformation_obj = Transformation(None, [100])
+        transformation_obj = Transformation(None, [100], True)
         assert transformation_obj.process_data_pipeline() == False
 
-        transformation_obj = Transformation(None, [])
+        transformation_obj = Transformation(None, [], True)
         assert transformation_obj.source_data_lookup() is None
         assert transformation_obj.compute_sales_profile_per_store() is None

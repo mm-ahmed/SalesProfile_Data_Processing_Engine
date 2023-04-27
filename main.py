@@ -7,7 +7,7 @@ import utils
 static_data_obj = static_data.StaticData()
 
 
-def process(sys_argv: List = []):
+def process(sys_argv: List = [], is_test_enabled=False):
     if len(sys_argv) > 1:
         del sys_argv[0]
         if utils.validate_input(sys_argv):
@@ -17,7 +17,7 @@ def process(sys_argv: List = []):
             sales_data_pys_df = static_data_object.get_source_dataset()
 
             transformation_object = Transformation(
-                sales_data_pys_df, input_store_id_list
+                sales_data_pys_df, input_store_id_list, is_test_enabled
             )
             if transformation_object.validate_store_id():
                 if transformation_object.process_data_pipeline():

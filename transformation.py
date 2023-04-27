@@ -12,7 +12,10 @@ static_data_obj = static_data.StaticData()
 
 class Transformation:
     def __init__(
-        self, sales_data_pys_df: pys_dataframe = None, input_store_id_list: List = None
+        self,
+        sales_data_pys_df: pys_dataframe = None,
+        input_store_id_list: List = None,
+        is_test_enabled=False,
     ):
         self._sales_data_pys_df = sales_data_pys_df
         self._input_store_id_list = input_store_id_list
@@ -20,6 +23,7 @@ class Transformation:
         self._compute_sales_profile_df = pd.DataFrame()
         self._join_type = static_data_obj.join_type
         self.output_file_name = static_data_obj.output_file_name
+        self._is_test_enabled = is_test_enabled
 
         self._store_id_label = str(
             static_data_obj.get_source_dataset_labels().get("store_id", "")
@@ -172,8 +176,9 @@ class Transformation:
             return (
                 utils.save_data(
                     resultset_dict,
-                    self.output_file_name,
                     self._compute_sales_profile_df,
+                    self.output_file_name,
+                    self._is_test_enabled,
                 )
                 if len(resultset_dict) > 0
                 else False

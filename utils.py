@@ -30,8 +30,16 @@ def get_distinct_store_ids(sales_data_pys_df: pys_dataframe = None):
 
 
 def save_data(
-    resultset: Dict = None, filename: str = "", resultset_df: df = None
+    resultset: Dict = None,
+    resultset_df: df = None,
+    filename: str = "",
+    is_test_enabled=False,
 ) -> bool:
+    if is_test_enabled:
+        filename = "test_" + filename
+
+    print(filename)
+
     if resultset is not None and resultset_df is not None and filename != "":
         with open(
             f"{current_directory}\OutputFiles\{filename}.json", "w"
