@@ -5,9 +5,13 @@ THE DATA PROCESSING ENGINE REQUIREMENTS:
     record that describes how many units of a product have been sold at a specific store at a specific time.
 
 2 - The sales profiles need to be computed for a subset of stores and write those sales profiles to a single JSON file in the
-    'OutputFiles' folder, as well as, the csv version into the folder 'OutputFiles/PowerBI' where he generated csv has a live
-    connection with the PowerBI file 'sales_profile_power_bi_file.pbix' in the same folder. (A screenshot of the dashboard has
-    been captured for a quick glance.)
+    'OutputFiles' folder.
+    2.1 -   TABLEAU PUBLICH SERVER: The transformed file is also saved as csv and connected to the Tableau for dashboarding purpose.
+            Public link to access the deployed dashboard: https://public.tableau.com/authoring/SalesProfile_16829394013360/SalesProfileDashboard#1
+            (A screenshot of the dashboard has been captured for a quick glance.)
+    2.2 -   Power BI: The same csv version is also stored into the folder 'OutputFiles/PowerBI' where he generated csv has a live
+            connection with the PowerBI file 'sales_profile_power_bi_file.pbix' in the same folder. (A screenshot of the dashboard has
+            been captured for a quick glance.)
 
 3 - A sales profile is computed by summing up the units sold for each product in each store and dividing by the total sum of units
     sold per store. These normalised unit sales must sum up to one (per store). This allows the comparison of stores independent
@@ -68,4 +72,4 @@ CODE STRUCTURE:
 
 6 - The file 'sales_data.tsv' in the StaticData folder is the dummy source data.
 
-7 - The OutputFiles folder contains the generated output by the process in JSON as well as in csv (under PowerBI subfolder).
+7 - The OutputFiles folder contains the generated output by the process in JSON as well as in csv (under Tableau and PowerBI subfolder).
